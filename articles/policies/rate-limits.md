@@ -76,13 +76,70 @@ If you are using an API endpoint **not** listed below and you receive rate limit
 
 ### Management API v2
 
-The rate limits for this API differ depending on whether your tenant is free or paid, production or not.
+The rate limits for this API differ depending on whether your tenant is free, self service or a production/non-production tenant part of an enterprise subscription.
 
 | Tenant Type | Limit |
 | - | - |
 | Free or Trial | 2 requests per second (and bursts up to 10 requests) |
-| Non-Production (Paid) | 2 requests per second (and bursts up to 10 requests) |
-| Production (Paid) | 15 requests per second (and bursts up to 50 requests) |
+| Enterprise (Non-Production) | 2 requests per second (and bursts up to 10 requests) |
+| Enterprise (Production) | 15 requests per second (and bursts up to 50 requests) |
+| Self service (created before 2020-06-20) | 15 requests per second (and bursts up to 50 requests) |
+
+The following limits apply to self service tenants created after 2020-05-20. Starting on 2020-07-01 these limits will apply to all self-service tenants: 
+<table class="table">
+  <thead>
+    <tr>
+      <th><strong>Endpoints</strong></th>
+      <th><strong>Rate limit</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+   <td>Read or write users:
+   GET /api/v2/users
+   POST /api/v2/users
+   ...</td>
+   <td>40</td>
+   <td>800</td>
+  </tr>
+  <tr>
+   <td>Read logs:
+   GET /api/v2/logs
+   GET /api/v2/users/{id}/logs
+   ...</td>
+   <td>15</td>
+   <td>200</td>
+  </tr>
+  <tr>
+   <td>Read clients:
+   GET /api/v2/clients
+   GET /api/v2/clients/{id}
+   </td>
+   <td>15</td>
+   <td>100</td>
+  </tr>
+  <tr>
+   <td>Read connections:
+   GET /api/v2/connections
+   GET /api/v2/connections/{id}
+   </td>
+   <td>10</td>
+   <td>100</td>
+  </tr>
+  <tr>
+   <td>Delete device credentials:
+   DELETE /api/v2/device-credentials/{id}
+   </td>
+   <td>5</td>
+   <td>100</td>
+  </tr>
+  <tr>
+   <td>All other endpoints</td>
+   <td>15</td>
+   <td>150</td>
+  </tr>
+  </tbody>
+</table>
 
 The aforementioned rate limits include calls made via [Rules](/rules) and are set **by tenant** and not by endpoint.
 
